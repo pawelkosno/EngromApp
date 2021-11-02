@@ -14,15 +14,15 @@ export const axios = Axios.create({
   baseURL: "",
 });
 
-export const weatherForecastClient = {
+export const employeesClient = {
   /**
    */
-  getApiWeatherForecast(
+  getApiEmployees(
     $config?: AxiosRequestConfig
-  ): AxiosPromise<WeatherForecast[]> {
-    let url = "/api/WeatherForecast";
+  ): AxiosPromise<GetEmployeesQueryResult[]> {
+    let url = "/api/Employees";
 
-    return axios.request<WeatherForecast[]>({
+    return axios.request<GetEmployeesQueryResult[]>({
       url: url,
       method: "GET",
       ...$config,
@@ -39,8 +39,7 @@ function serializeQueryParam(obj: any) {
     .join("&");
 }
 
-export interface WeatherForecast {
-  date?: Date;
-  temperatureC?: number;
-  summary?: string;
+export interface GetEmployeesQueryResult {
+  firstName?: string;
+  lastName?: string;
 }

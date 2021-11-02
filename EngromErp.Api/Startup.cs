@@ -1,4 +1,5 @@
 using EngromErp.DataAccess;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace EngromErp.Api
             services.AddControllers();
             services.AddDbContext<EngromErpContext>(x => x.UseSqlServer(Configuration.GetConnectionString("EngromErpDbConnectionString")));
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "engromApp", Version = "v1" }));
+            services.AddMediatR(typeof(EngromErpContext));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,11 +37,11 @@ namespace EngromErp.Api
             }
 
             app.UseSwagger(x => x.SerializeAsV2 = true);
-            app.UseSwaggerUI(x => 
+            app.UseSwaggerUI(x =>
                 {
                     x.SwaggerEndpoint("/swagger/v1/swagger.json", "myApi");
                     x.RoutePrefix = "";
-                } 
+                }
             );
 
             app.UseRouting();
